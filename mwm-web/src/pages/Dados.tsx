@@ -1,9 +1,41 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Menu from './Menu';
-import { Card, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
+
+export type DataType = {
+    id: String,
+    Body: string
+}
+
+export type MessageType = {
+    messageId: String,
+    deviceId: String,
+    temperature: Number,
+    humidity: Number
+}
 
 function Dados() {
+    const [messages, setAllMessages] = useState<DataType[]>([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:3001/messages')
+            .then(function (response) {
+                // handle success
+                console.log(response.data.resources);
+                setAllMessages(response.data.resources);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .finally(function () {
+                // always executed
+            });
+    }, []);
+
     return (
         <>
             <Menu></Menu>
@@ -16,34 +48,32 @@ function Dados() {
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
+                                <th>Device Id</th>
+                                <th>Temperatura</th>
+                                <th>Humidade</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td colSpan={2}>Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            {messages.map((m) => (
+                                <tr>
+                                    <td>{convert(m).messageId}</td>
+                                    <td>{convert(m).deviceId}</td>
+                                    <td>{convert(m).temperature}</td>
+                                    <td>{convert(m).humidity}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </Table>
+
                 </Row>
             </Container>
         </>
-    )
+    );
+
+    function convert(d: DataType) {
+        var json = window.atob(d.Body);
+        console.log(json);
+        return JSON.parse(json);
+    }
 }
 export default Dados;
