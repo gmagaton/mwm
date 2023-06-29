@@ -11,6 +11,11 @@ app.get('/messages', async (req, res) => {
     res.json(dados);
 })
 
+app.post('/previsao', (req, res) => {
+    console.log('Consultando previsão');
+    res.send("Sem Chuva");
+})
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })

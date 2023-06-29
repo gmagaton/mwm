@@ -1,9 +1,26 @@
+import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Menu from './Menu';
 import { Col, Form } from 'react-bootstrap';
 
 function Previsao() {
+
+    const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+        axios.post('http://localhost:3001/previsao')
+            .then(function (response) {
+                // handle success
+                alert('Enviou');
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .finally(function () {
+                // always executed
+            });
+    }
+
     return (
         <>
             <Menu></Menu>
@@ -12,7 +29,7 @@ function Previsao() {
                     <h1 className="h3 mb-3 fw-normal">Previsão</h1>
                     <label>Informe os dados abaixo para realizar a previsão climática</label>
                     <p></p>
-                    <Form>
+                    <Form onSubmit={onSubmitHandler}>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Origem</Form.Label>
                             <Form.Select aria-label="Origem">
@@ -37,6 +54,7 @@ function Previsao() {
                             <Form.Label>Horário</Form.Label>
                             <Form.Control type="time" name="data" placeholder="Data" />
                         </Form.Group>
+                        <input type="submit"  />
                     </Form>
                 </Row>
             </Container>
