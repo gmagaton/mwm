@@ -50,7 +50,7 @@ function Dados() {
                                 <th>#</th>
                                 <th>Device Id</th>
                                 <th>Temperatura</th>
-                                <th>Humidade</th>
+                                <th>Umidade</th>
                             </tr>
                         </thead>
                         <tbody>
