@@ -1,15 +1,15 @@
 # Data Driven Microclimatic Weather Mapping
 
-Backend: 
-cd mwm-backend
-npm install
-node index.js
+# Backend: 
+- cd mwm-backend
+- npm install
+- node index.js
 
-localhost:3001
+- localhost:3001
 
-Frontend:
-cd mwm-web
-npm install
-npm start
+# Frontend:
+- cd mwm-web
+- npm install
+- npm start
 
-localhost:3000
+- localhost:3000
