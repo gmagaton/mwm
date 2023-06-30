@@ -12,8 +12,15 @@ app.get('/messages', async (req, res) => {
 })
 
 app.post('/previsao', (req, res) => {
+
+    // req.body.origem
+    // req.body.destino
+    // req.body.data
+    // req.body.hora
+
+
     console.log('Consultando previsão');
-    res.send("Sem Chuva");
+    res.send("80% Umidade e 24 graus de Temperatura. Sem previsão de chuva.");
 })
 
 app.listen(port, () => {
